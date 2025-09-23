@@ -9,15 +9,15 @@ using System.Threading.Tasks;
 
 namespace C44_G04_MVC03.BLL.Repositories
 {
-    internal class DepartmentRepositories : IDepartmentRepo
+     public class DepartmentRepositories : IDepartmentRepo
     {
 
 
-        private CompanyDBContext _context;
+        private readonly CompanyDBContext _context;
 
-        public DepartmentRepositories()
+        public DepartmentRepositories(CompanyDBContext context)
         {
-            _context = new CompanyDBContext();
+            _context = context;
         }
 
         public IEnumerable<Department> GetAll()

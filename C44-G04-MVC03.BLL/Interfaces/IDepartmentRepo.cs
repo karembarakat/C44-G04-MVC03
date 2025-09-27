@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 
 namespace C44_G04_MVC03.BLL.Interfaces
 {
-    public interface IDepartmentRepo
+    public interface IDepartmentRepo : IGenericRepository<Department>
     {
-        IEnumerable<Department> GetAll();
+        //IEnumerable<Department> GetAll();
 
-        Department? Get(int id);
+        //Department? Get(int id);
 
-        int Add(Department department);
-        int Update(Department department);
-        int Delete(Department department);
+        //int Add(Department department);
+        //int Update(Department department);
+        //int Delete(Department department);
       
     }
 }

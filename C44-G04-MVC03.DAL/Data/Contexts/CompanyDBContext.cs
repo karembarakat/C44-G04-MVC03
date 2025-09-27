@@ -9,13 +9,10 @@ using System.Threading.Tasks;
 
 namespace C44_G04_MVC03.DAL.Data.Contexts
 {
-    internal class CompanyDBContext : DbContext
+    public class CompanyDBContext : DbContext
     {
-            public CompanyDBContext() : base()
-            {
-
-                
-            }
+            public CompanyDBContext(DbContextOptions<CompanyDBContext> options) : base(options)
+            {}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -26,7 +23,13 @@ namespace C44_G04_MVC03.DAL.Data.Contexts
         
         override protected void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=.;Database=CompanyDB;Trusted_Connection = True; TrustServerCertificate = True");
+            //optionsBuilder.UseSqlServer("Server=.;Database=CompanyDB;Trusted_Connection = True; TrustServerCertificate = True");
+
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer("Server=.;Database=CompanyDB;Trusted_Connection=True;TrustServerCertificate=True");
+            
+            }
         }
 
         public DbSet<Department> Departments { get; set; }

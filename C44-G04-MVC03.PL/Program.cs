@@ -1,3 +1,8 @@
+using C44_G04_MVC03.BLL.Interfaces;
+using C44_G04_MVC03.BLL.Repositories;
+using C44_G04_MVC03.DAL.Data.Contexts;
+using Microsoft.EntityFrameworkCore;
+
 namespace C44_G04_MVC03.PL
 {
     public class Program
@@ -9,7 +14,14 @@ namespace C44_G04_MVC03.PL
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
+            builder.Services.AddScoped<IDepartmentRepo, DepartmentRepositories>();
+
+
+            builder.Services.AddDbContext<CompanyDBContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
             var app = builder.Build();
+
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())

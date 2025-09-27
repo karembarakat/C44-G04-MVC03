@@ -66,7 +66,7 @@ namespace C44_G04_MVC03.PL.Controllers
                 return NotFound();
             return View(department);
         }
-
+        [HttpGet]
         public IActionResult Edit(int id)
         {
             var department = _departmentRepo.Get(id);
@@ -74,6 +74,34 @@ namespace C44_G04_MVC03.PL.Controllers
                 return NotFound();
             return View(department);
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit([FromRoute] int id, UpdateDepartmentDto model)
+        {
+            if (!ModelState.IsValid)
+            {
+                var existingDepartment = _departmentRepo.Get(id);
+                if (existingDepartment == null)
+                    return NotFound();
+                return View(model);
+            }
+            var department = new Department
+            {
+                Id = id,
+                Code = model.Code,
+                Name = model.Name,
+                CreateAt = model.CreateAt
+            };
+
+            var count = _departmentRepo.Update(department);
+            if (count > 0)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(model);
+        }
+
 
     }
 }

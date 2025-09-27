@@ -9,41 +9,11 @@ using System.Threading.Tasks;
 
 namespace C44_G04_MVC03.BLL.Repositories
 {
-    public class EmployeeRepository : IEmployeeRepository
+    public class EmployeeRepository : GenericRepository<Employee>,  IEmployeeRepository
     {
-        private readonly CompanyDBContext _Context;
-
-        public EmployeeRepository(CompanyDBContext context)
+        public EmployeeRepository(CompanyDBContext context) : base(context)
         {
-            _Context = context;
-        }
 
-        public int Add(Employee model)
-        {
-            _Context.Employees.Add(model);
-            return _Context.SaveChanges();
-        }
-
-        public int Delete(Employee model)
-        {
-            _Context.Employees.Remove(model);
-            return _Context.SaveChanges();
-        }
-
-        public Employee? Get(int id)
-        {
-            return _Context.Employees.Find(id);
-        }
-
-        public IEnumerable<Employee> GetAll()
-        {
-            return _Context.Employees.ToList();
-        }
-
-        public int Update(Employee model)
-        {
-            _Context.Employees.Update(model);
-            return _Context.SaveChanges();
-        }
+        }   
     }
 }

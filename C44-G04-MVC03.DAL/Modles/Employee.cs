@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace C44_G04_MVC03.DAL.Modles
 {
-    public class Employee
+    public class Employee : BaseEntity
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
         public string Address { get; set; }

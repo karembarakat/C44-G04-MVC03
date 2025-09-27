@@ -16,6 +16,6 @@ namespace C44_G04_MVC03.BLL.Interfaces
         int Add(Department department);
         int Update(Department department);
         int Delete(Department department);
-
+      
     }
 }

@@ -1,4 +1,5 @@
 ﻿using C44_G04_MVC03.DAL.Models;
+using C44_G04_MVC03.DAL.Modles;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -33,5 +34,6 @@ namespace C44_G04_MVC03.DAL.Data.Contexts
         }
 
         public DbSet<Department> Departments { get; set; }
+        public DbSet<Employee> Employees { get; set; }
     }
 }

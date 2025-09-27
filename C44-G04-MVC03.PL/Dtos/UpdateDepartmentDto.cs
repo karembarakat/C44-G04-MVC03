@@ -2,12 +2,12 @@
 
 namespace C44_G04_MVC03.PL.Dtos
 {
-    public class CreateDpartmentDto
+    public class UpdateDepartmentDto
     {
         [Required(ErrorMessage = "Code Is req")]
-        public string Code { get; set; } = string.Empty;
+        public string Code { get; set; }
         [Required(ErrorMessage = "Code Is Name")]
-        public string Name { get; set; } = string.Empty;
+        public string Name { get; set; }
         [Required(ErrorMessage = "Code Is CreateAt")]
         public DateTime CreateAt { get; set; }
     }

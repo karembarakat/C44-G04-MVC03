@@ -59,21 +59,23 @@ namespace C44_G04_MVC03.PL.Controllers
 
 
         [HttpGet]
-        public IActionResult Details(int id)
+        public IActionResult Details(int id, string viewName = "Details")
         {
             var department = _departmentRepo.Get(id);
             if (department == null)
                 return NotFound();
-            return View(department);
+            return View(viewName, department);
         }
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            var department = _departmentRepo.Get(id);
-            if (department == null)
-                return NotFound();
-            return View(department);
+            //var department = _departmentRepo.Get(id);
+            //if (department == null)
+            //    return NotFound();
+
+            return Details(id,"Edit");
         }
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Edit([FromRoute] int id, UpdateDepartmentDto model)
@@ -97,6 +99,35 @@ namespace C44_G04_MVC03.PL.Controllers
             if (count > 0)
             {
                 return RedirectToAction(nameof(Index));
+            }
+
+            return View(model);
+        }
+
+
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            //var department = _departmentRepo.Get(id);
+            //if (department == null)
+            //    return NotFound();
+            return Details(id,"Delete");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete([FromRoute] int id, Department model)
+        {
+            if (ModelState.IsValid)
+            {
+            if (id != model.Id) return BadRequest(); // 400
+                var count = _departmentRepo. Delete(model);
+
+            if (count > 0) 
+                { 
+                    return RedirectToAction(nameof(Index));
+                }
+
             }
 
             return View(model);

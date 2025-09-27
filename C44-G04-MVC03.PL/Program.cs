@@ -15,6 +15,7 @@ namespace C44_G04_MVC03.PL
             builder.Services.AddControllersWithViews();
 
             builder.Services.AddScoped<IDepartmentRepo, DepartmentRepositories>();
+            builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 
 
             builder.Services.AddDbContext<CompanyDBContext>(options =>

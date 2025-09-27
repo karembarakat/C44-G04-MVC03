@@ -38,7 +38,7 @@ namespace C44_G04_MVC03.PL.Controllers
 
             
             if (ModelState.IsValid) {
-                var department = new Department
+                var department = new Department()
                 {
                     Code = model.Code,
                     Name = model.Name,

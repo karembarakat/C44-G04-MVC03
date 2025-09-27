@@ -72,21 +72,51 @@ namespace C44_G04_MVC03.PL.Controllers
             return View(viewName, employee);
         }
         [HttpGet]
-        public IActionResult Edit(int id)
+        public IActionResult Edit(int? id)
         {
 
-            return Details(id, "Edit");
+            if (id is null) return BadRequest(); // 400
+            var employee = _employeeRepository.Get(id.Value);
+            if (employee == null) return NotFound(); // 404
+            var employeeDto = new CreateEmployeeDto()
+            {
+                Name = employee.Name,
+                Email = employee.Email,
+                Address = employee.Address,
+                Phone = employee.Phone,
+                Salary = employee.Salary,
+                IsActive = employee.IsActive,
+                isDeleted = employee.isDeleted,
+                Age = employee.Age,
+                HireDate = employee.HireDate,
+                CreateAt = employee.CreateAt
+            };
+            return View(employeeDto);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit([FromRoute] int id, Employee model)
+        public IActionResult Edit([FromRoute] int id, CreateEmployeeDto model)
         {
             
             if (ModelState.IsValid)
             {
-                if (id != model.Id) return BadRequest(); // 400
-                var count = _employeeRepository.Update(model);
+                //if (id != model.Id) return BadRequest(); // 400
+                var employee = new Employee()
+                {
+                    Id = id,
+                    Name = model.Name,
+                    Email = model.Email,
+                    Address = model.Address,
+                    Phone = model.Phone,
+                    Salary = model.Salary,
+                    IsActive = model.IsActive,
+                    isDeleted = model.isDeleted,
+                    Age = model.Age,
+                    HireDate = model.HireDate,
+                    CreateAt = model.CreateAt
+                };
+                var count = _employeeRepository.Update(employee);
                 if (count > 0)
                 {
                     return RedirectToAction(nameof(Index));

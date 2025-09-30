@@ -1,6 +1,7 @@
 using C44_G04_MVC03.BLL.Interfaces;
 using C44_G04_MVC03.BLL.Repositories;
 using C44_G04_MVC03.DAL.Data.Contexts;
+using C44_G04_MVC03.PL.Mapping;
 using C44_G04_MVC03.PL.Services;
 using Microsoft.EntityFrameworkCore;
 
@@ -23,8 +24,10 @@ namespace C44_G04_MVC03.PL
             {
 
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-            }, ServiceLifetime.Singleton
-                );
+            });
+
+            //builder.Services.AddAutoMapper(typeof(EmployeeProfile));
+            builder.Services.AddAutoMapper(M => M.AddProfile(new EmployeeProfile()));
 
             builder.Services.AddScoped<IScopedService, ScopedService>(); // Per request
             builder.Services.AddScoped<ITransentService, TransentService>(); // Per Operation

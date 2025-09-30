@@ -23,5 +23,7 @@ namespace C44_G04_MVC03.PL.Dtos
         public DateTime HireDate { get; set; }
         [DisplayName("Date Of Creation")]
         public DateTime CreateAt { get; set; }
+
+        public int? DepartmentId { get; set; }
     }
 }

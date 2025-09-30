@@ -1,5 +1,7 @@
-﻿using System;
+﻿using C44_G04_MVC03.DAL.Models;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +20,9 @@ namespace C44_G04_MVC03.DAL.Modles
         public int? Age { get; set; }
         public DateTime HireDate { get; set; }
         public DateTime CreateAt { get; set; }
+        [DisplayName("Departemnt")]
+        public int? DepartmentId { get; set; }
 
+        public Department? Department { get; set; }
     }
 }

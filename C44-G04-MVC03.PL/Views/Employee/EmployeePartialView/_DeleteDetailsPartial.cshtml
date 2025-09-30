@@ -37,6 +37,11 @@
     <input asp-for="CreateAt" class="form-control" readonly />
 </div>
 <div class="my-3">
+    <h2>Hello</h2>
+    <label asp-for="Department" class="col-form-label"></label>
+    <input asp-for="Department.Name" class="form-control" readonly />
+</div>
+<div class="my-3">
     <input type="submit" value="Delete" class="btn btn-danger" />
     <a asp-action="Index" class="btn btn-secondary">Back to List</a>
 </div>

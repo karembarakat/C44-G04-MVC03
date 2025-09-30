@@ -1,4 +1,5 @@
-﻿using C44_G04_MVC03.BLL.Interfaces;
+﻿using AutoMapper;
+using C44_G04_MVC03.BLL.Interfaces;
 using C44_G04_MVC03.DAL.Models;
 using C44_G04_MVC03.DAL.Modles;
 using C44_G04_MVC03.PL.Dtos;
@@ -11,11 +12,17 @@ namespace C44_G04_MVC03.PL.Controllers
     {
         private readonly IEmployeeRepository _employeeRepository;
         private readonly IDepartmentRepo _departmentRepo;
+        private readonly IMapper _mapper;
 
-        public EmployeeController(IEmployeeRepository employeeRepository, IDepartmentRepo departmentRepo)
+        public EmployeeController(
+            IEmployeeRepository employeeRepository,
+            IDepartmentRepo departmentRepo,
+            IMapper mapper
+            )
         {
             _employeeRepository = employeeRepository;
             _departmentRepo = departmentRepo;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -54,22 +61,22 @@ namespace C44_G04_MVC03.PL.Controllers
         {
             if (ModelState.IsValid)
             {
-                var employee = new Employee()
-                {
-
-                    Name = model.Name,
-                    Email = model.Email,
-                    Address = model.Address,
-                    Phone = model.Phone,
-                    Salary = model.Salary,
-                    IsActive = model.IsActive,
-                    isDeleted = model.isDeleted,
-                    Age = model.Age,
-                    HireDate = model.HireDate,
-                    CreateAt = model.CreateAt,
-                    DepartmentId = model.DepartmentId
-                };
-
+                //var employee = new Employee()
+                //{
+                //    // MAnual Mapping
+                //    Name = model.Name,
+                //    Email = model.Email,
+                //    Address = model.Address,
+                //    Phone = model.Phone,
+                //    Salary = model.Salary,
+                //    IsActive = model.IsActive,
+                //    isDeleted = model.isDeleted,
+                //    Age = model.Age,
+                //    HireDate = model.HireDate,
+                //    CreateAt = model.CreateAt,
+                //    DepartmentId = model.DepartmentId
+                //};
+                var employee = _mapper.Map<Employee>(model);
                 var count = _employeeRepository.Add(employee);
                 if (count > 0)
                 {
@@ -90,7 +97,8 @@ namespace C44_G04_MVC03.PL.Controllers
             var employee = _employeeRepository.Get(id);
             if (employee == null)
                 return NotFound();
-            return View(viewName, employee);
+
+            return View(employee);
         }
         [HttpGet]
         public IActionResult Edit(int? id)
@@ -114,7 +122,8 @@ namespace C44_G04_MVC03.PL.Controllers
                 CreateAt = employee.CreateAt,
                 DepartmentId = employee.DepartmentId
             };
-            return View(employeeDto);
+            var dto = _mapper.Map<CreateEmployeeDto>(employee);
+            return View(dto);
         }
 
         [HttpPost]

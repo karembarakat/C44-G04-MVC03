@@ -22,7 +22,6 @@ namespace C44_G04_MVC03.DAL.Modles
         public DateTime CreateAt { get; set; }
         [DisplayName("Departemnt")]
         public int? DepartmentId { get; set; }
-
         public Department? Department { get; set; }
     }
 }

@@ -3,6 +3,7 @@ using C44_G04_MVC03.DAL.Models;
 using C44_G04_MVC03.DAL.Modles;
 using C44_G04_MVC03.PL.Dtos;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections;
 
 namespace C44_G04_MVC03.PL.Controllers
 {
@@ -18,14 +19,22 @@ namespace C44_G04_MVC03.PL.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult Index(string? searchInput)
         {
+            IEnumerable<Employee> employees;
+            if (string.IsNullOrEmpty(searchInput))
+            {
 
+                 employees = _employeeRepository.GetAll();
+            }
+            else
+            {
+                 employees = _employeeRepository.GetbyName(searchInput);
+            }
 
-            var employees = _employeeRepository.GetAll();
 
             //ViewData["Message"] = "Hello from EmployeeController Index Action";
-           
+
             //ViewBag.Message = "Hello from EmployeeController Index Action";
             return View(employees);
         }

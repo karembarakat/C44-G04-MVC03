@@ -10,6 +10,7 @@ namespace C44_G04_MVC03.BLL.Interfaces
 {
     public interface IEmployeeRepository : IGenericRepository<Employee>
     {
+        List<Employee>? GetbyName(string name);
         //IEnumerable<Employee> GetAll();
 
         //Employee? Get(int id);

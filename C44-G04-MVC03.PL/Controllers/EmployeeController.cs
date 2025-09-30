@@ -18,7 +18,13 @@ namespace C44_G04_MVC03.PL.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+
+
             var employees = _employeeRepository.GetAll();
+
+            //ViewData["Message"] = "Hello from EmployeeController Index Action";
+           
+            //ViewBag.Message = "Hello from EmployeeController Index Action";
             return View(employees);
         }
 
@@ -53,6 +59,7 @@ namespace C44_G04_MVC03.PL.Controllers
                 var count = _employeeRepository.Add(employee);
                 if (count > 0)
                 {
+                    TempData["Message"] = "Employee Created Successfully";
                     return RedirectToAction(nameof(Index));
                 }
 

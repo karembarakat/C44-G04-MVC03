@@ -15,7 +15,13 @@
         <p>@TempData["Message"]</p>
         </div>
     }
+    <form>
 
+        <div class="my-3">
+            <input type="text" id="searchInput" name="searchInput" placeholder="Search by name..." class="form-control" />
+        <input type="submit" value="Search" class="btn btn-primary mt-2" />
+        </div>
+    </form>
 <a asp-action="Create" class="btn btn-primary" asp-controller="Employee">Create Employees</a>
 <br />
 <br />

@@ -5,9 +5,9 @@
 
 <h1>Delete Department</h1>
 
-<br />
-<br />
-<form asp-action="Delete">
+
+<form asp-action="Delete" method="post">
+
     <div class="my-3">
         <label asp-for="Code" class="col-form-label"></label>
         <input asp-for="Code" class="form-control" readonly />
@@ -22,7 +22,7 @@
     </div>
 
     <div class="my-3">
-        <input type="submit" value="Delete" class="btn btn-danger" />
+        <button type="submit" class="btn btn-danger">Delete</button>
         <a asp-action="Index" class="btn btn-secondary">Back to List</a>
     </div>
 </form>

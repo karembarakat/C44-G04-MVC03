@@ -1,3 +1,4 @@
+using C44_G04_MVC03.BLL;
 using C44_G04_MVC03.BLL.Interfaces;
 using C44_G04_MVC03.BLL.Repositories;
 using C44_G04_MVC03.DAL.Data.Contexts;
@@ -18,6 +19,8 @@ namespace C44_G04_MVC03.PL
 
             builder.Services.AddScoped<IDepartmentRepo, DepartmentRepositories>();
             builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+
+            builder.Services.AddScoped<IUnitOfWork, UnitOFwork>();
 
 
             builder.Services.AddDbContext<CompanyDBContext>(options =>

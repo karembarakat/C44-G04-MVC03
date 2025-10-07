@@ -8,17 +8,19 @@ namespace C44_G04_MVC03.PL.Controllers
 {
     public class DepartmentController : Controller
     {
-        private readonly IDepartmentRepo _departmentRepo;
+        //private readonly IDepartmentRepo _departmentRepo;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public DepartmentController(IDepartmentRepo departmentRepo)
+        public DepartmentController(IUnitOfWork unitOfWork)
         {
-            _departmentRepo = departmentRepo;
+            _unitOfWork = unitOfWork;
+            //_departmentRepo = departmentRepo;
         }
 
         [HttpGet]
         public IActionResult Index()
         {
-            var departments = _departmentRepo.GetAll();
+            var departments = _unitOfWork.DepartmentRepo.GetAll();
             return View(departments);
 
 
@@ -45,7 +47,10 @@ namespace C44_G04_MVC03.PL.Controllers
                     CreateAt = model.CreateAt
                 };
 
-                var count =_departmentRepo.Add(department);
+                //var count = _unitOfWork.DepartmentRepo.Add(department);
+                _unitOfWork.DepartmentRepo.Add(department);
+                var count = _unitOfWork.Complete();
+
                 if (count > 0)
                 {
                     return RedirectToAction(nameof(Index));
@@ -61,7 +66,7 @@ namespace C44_G04_MVC03.PL.Controllers
         [HttpGet]
         public IActionResult Details(int id, string viewName = "Details")
         {
-            var department = _departmentRepo.Get(id);
+            var department = _unitOfWork.DepartmentRepo.Get(id);
             if (department == null)
                 return NotFound();
             return View(viewName, department);
@@ -82,7 +87,7 @@ namespace C44_G04_MVC03.PL.Controllers
         {
             if (!ModelState.IsValid)
             {
-                var existingDepartment = _departmentRepo.Get(id);
+                var existingDepartment = _unitOfWork.DepartmentRepo.Get(id);
                 if (existingDepartment == null)
                     return NotFound();
                 return View(model);
@@ -95,7 +100,9 @@ namespace C44_G04_MVC03.PL.Controllers
                 CreateAt = model.CreateAt
             };
 
-            var count = _departmentRepo.Update(department);
+            //var count = _unitOfWork.DepartmentRepo.Update(department);
+            _unitOfWork.DepartmentRepo.Update(department);
+            var count = _unitOfWork.Complete();
             if (count > 0)
             {
                 return RedirectToAction(nameof(Index));
@@ -121,9 +128,11 @@ namespace C44_G04_MVC03.PL.Controllers
             if (ModelState.IsValid)
             {
             if (id != model.Id) return BadRequest(); // 400
-                var count = _departmentRepo. Delete(model);
+                //var count = _unitOfWork.DepartmentRepo.Delete(model);
+                _unitOfWork.DepartmentRepo.Delete(model);
+                var count = _unitOfWork.Complete();
 
-            if (count > 0) 
+                if (count > 0) 
                 { 
                     return RedirectToAction(nameof(Index));
                 }
